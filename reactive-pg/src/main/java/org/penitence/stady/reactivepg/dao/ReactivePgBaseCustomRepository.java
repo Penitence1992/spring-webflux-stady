@@ -13,7 +13,7 @@ public abstract class ReactivePgBaseCustomRepository {
 
     private ReactivePgManager reactivePgManager;
 
-    private final ReactiveResultTransformer MAP_TRANSFORMER = ((colNames, row) -> {
+    private final ReactiveResultTransformer<Map> MAP_TRANSFORMER = ((colNames, row) -> {
         Map<String, Object> map = new HashMap<>();
         colNames.forEach(col -> map.put(col, row.getValue(col)));
         return map;
@@ -24,7 +24,7 @@ public abstract class ReactivePgBaseCustomRepository {
     }
 
     public Flux<Map> findAll(String sql){
-        return reactivePgManager.execute(sql, MAP_TRANSFORMER, Map.class);
+        return reactivePgManager.execute(sql, MAP_TRANSFORMER);
     }
 
 

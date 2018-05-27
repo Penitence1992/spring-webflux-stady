@@ -4,7 +4,7 @@ import io.reactiverse.pgclient.Row;
 
 import java.util.List;
 
-public interface ReactiveResultTransformer {
+public interface ReactiveResultTransformer<T> {
 
-    public Object transformTuple(List<String> colNames, Row row);
+    public T transformTuple(List<String> colNames, Row row);
 }

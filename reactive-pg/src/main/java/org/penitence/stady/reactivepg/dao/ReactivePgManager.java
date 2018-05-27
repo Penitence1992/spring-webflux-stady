@@ -29,16 +29,15 @@ public class ReactivePgManager {
 
     }
 
-    public <T> Flux<T> execute(String sql, ReactiveResultTransformer transformer, Class<T> clazz) {
-
-        return Flux.create(sink -> dataSource.getConnection()
-                .subscribe(pgConnection -> pgConnection.prepare(sql, preparedQuery -> {
+    public <T> Flux<T> execute(String sql, ReactiveResultTransformer<T> transformer) {
+        return dataSource.getConnection()
+                .flatMapMany(pgConnection -> Flux.create(sink -> pgConnection.prepare(sql, preparedQuery -> {
                     if (preparedQuery.succeeded()) {
                         preparedQuery.result()
                                 .execute(pgResult -> {
                                     if (pgResult.succeeded()) {
                                         PgResult<Row> rowResult = pgResult.result();
-                                        rowResult.forEach(row -> sink.next((T) transformer.transformTuple(rowResult.columnsNames(), row)));
+                                        rowResult.forEach(row -> sink.next(transformer.transformTuple(rowResult.columnsNames(), row)));
                                         sink.complete();
                                     } else {
                                         sink.error(pgResult.cause());
