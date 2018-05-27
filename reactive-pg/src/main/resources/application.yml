@@ -1,0 +1,38 @@
+reactive:
+  pg:
+    host: ${service.postgres.host}
+    port: ${service.postgres.port}
+    max-pool-size: 10
+    username: ${service.postgres.username}
+    password: ${service.postgres.password}
+    name: ${service.postgres.name}
+
+service:
+  postgres: #同上
+    host: localhost
+    port: 5432
+    name: postgres
+    username: ascs
+    password: ascs.tech
+
+spring:
+  application:
+    name: webflux-pg  # 设定应用的名称，如果接入eureka，会使用这个名称注册eureka，别的服务可以根据这个名称进行服务调用
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${service.postgres.username}
+    password: ${service.postgres.password}
+    url: jdbc:postgresql://${service.postgres.host}:${service.postgres.port}/${service.postgres.name}
+
+info:
+  app:
+    name: ${spring.application.name}
+    version: v1.0.0
+    time: 2018-04-23 10:55:18
+  describe: docker_manager
+  home: /info
+
+server:
+  port: 8090
+
+

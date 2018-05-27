@@ -1,0 +1,45 @@
+group 'org.penitence.stady'
+version '1.0.0'
+
+buildscript {
+    repositories {
+        maven{ url "http://maven.aliyun.com/nexus/content/groups/public/"}
+        maven{ url "https://maven.ascs.tech/"}
+        mavenCentral()
+    }
+    dependencies {
+    }
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    version rootProject.version
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        maven{ url "http://maven.aliyun.com/nexus/content/groups/public/"}
+        maven{ url "https://maven.ascs.tech/"}
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+    }
+
+    task sayProjectName{
+        println project.name
+    }
+
+    jar {
+        baseName project.name
+        version project.version.toString()
+        buildDir new File(rootProject.buildDir.absolutePath + "/" + project.name)
+    }
+
+    clean {
+        delete rootProject.buildDir
+    }
+}
+
