@@ -1,0 +1,16 @@
+spring:
+  rabbitmq:
+    host: 172.25.0.2
+    username: ascs
+    password: ascs.tech
+    virtual-host: upm
+    port: 5672
+  cloud:
+    stream:
+      bindings:
+        flux-in:
+          destination: monitor_topic
+          consumer:
+            exchangeType: fanout
+#        flux-out:
+#          destination: oooooo
