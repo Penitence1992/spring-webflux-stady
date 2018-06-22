@@ -1,0 +1,59 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.3.RELEASE'
+    }
+    repositories {
+        mavenLocal()
+        maven{ url "http://maven.aliyun.com/nexus/content/groups/public/"}
+        maven{ url "https://oss.sonatype.org/content/groups/public/"}
+        maven{ url "https://oss.sonatype.org/content/repositories/snapshots/"}
+        maven{ url "https://maven.ascs.tech/"}
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'org.penitence.stady'
+version = '1.0.0'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    maven{ url "http://maven.aliyun.com/nexus/content/groups/public/"}
+    maven{ url "https://oss.sonatype.org/content/groups/public/"}
+    maven{ url "https://oss.sonatype.org/content/repositories/snapshots/"}
+    maven{ url "https://maven.ascs.tech/"}
+    mavenCentral()
+}
+
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.glassfish.jersey.bundles.repackaged/jersey-guava
+    compile group: 'org.glassfish.jersey.bundles.repackaged', name: 'jersey-guava', version: '2.6'
+
+    // https://mvnrepository.com/artifact/org.glassfish.hk2/hk2-api
+    compile group: 'org.glassfish.hk2', name: 'hk2-api', version: '2.5.0-b32'
+    compile group: 'org.glassfish.hk2', name: 'hk2-locator', version: '2.5.0-b32'
+    compile group: 'org.glassfish.hk2', name: 'hk2-utils', version: '2.5.0-b32'
+    compile group: 'org.glassfish.hk2.external', name: 'javax.inject', version: '2.5.0-b32'
+    compile group: 'org.glassfish.hk2.external', name: 'aopalliance-repackaged', version: '2.5.0-b32'
+    compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.26'
+
+
+    // https://mvnrepository.com/artifact/org.glassfish.hk2/hk2-api
+    compile 'com.spotify:docker-client:8.11.6'
+// https://mvnrepository.com/artifact/commons-logging/commons-logging
+//    compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-webflux')
+//    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('io.projectreactor:reactor-test')
+}
